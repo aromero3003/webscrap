@@ -1,16 +1,12 @@
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, redirect
 import pymysql
 from dotenv import load_dotenv
 from os import getenv
-# from flaskext.mysql import MySQL
 
 load_dotenv()
 
 app = Flask(__name__)
-
-# mysql = MySQL()
-# mysql.init_app(app)
 
 # Configuraciones de la conexión
 host = getenv("SQL_HOST")
@@ -22,12 +18,6 @@ password = getenv("DB_PASSWORD")
 
 @app.route('/')
 def index():
-    # sql_query = "select * from productos;"
-    # conn = mysql.connect()
-    # cursor = conn.cursor()
-    # cursor.execute(sql_query)
-    # cursor.commit()
-
     connection = pymysql.connect(
         host=host, port=port, database=database, user=user, password=password)
     cursor = connection.cursor()
@@ -36,7 +26,6 @@ def index():
         h.datetime = (SELECT MAX(datetime) FROM historial
         WHERE historial.product_url = p.url);""")
     productos = cursor.fetchall()
-    # print(productos)
     connection.commit()
     return render_template('index.html', productos=productos)
 
@@ -48,6 +37,8 @@ def product(product_id):
     cursor = connection.cursor()
     cursor.execute(f"SELECT * FROM productos WHERE id={product_id};")
     prod = cursor.fetchone()
+    if prod is None:
+        return redirect('/')
 
     cursor.execute(
         f"SELECT * FROM historial WHERE product_url='{prod[2]}';")

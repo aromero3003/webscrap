@@ -10,26 +10,33 @@
 </head>
 
 <body>
-    <h1> ANDA JOYA !!! </h1>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Inicio</a>
+        </div>
+    </nav>
+    <!-- <h1> ANDA JOYA !!! </h1> -->
 
     <h2> {{ prod[1] }} </h2>
-    <table class="table table-light">
-        <thead class="thead-light">
-            <tr>
-                <th>Precio</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for price in history %}
-            <tr>
-                <td>{{ price[2] }}</td>
-                <td>{{ price[0] }}</td>
+    <div class="container">
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>Precio</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for price in history %}
+                <tr>
+                    <td>{{ price[2] }}</td>
+                    <td>{{ price[0] }}</td>
 
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>
