@@ -22,9 +22,9 @@ def index():
         host=host, port=port, database=database, user=user, password=password)
     cursor = connection.cursor()
     cursor.execute("""SELECT * FROM productos AS p INNER JOIN
-        historial AS h ON p.url = h.product_url WHERE
+        historial AS h ON p.id = h.prod_id WHERE
         h.datetime = (SELECT MAX(datetime) FROM historial
-        WHERE historial.product_url = p.url);""")
+        WHERE historial.prod_id = p.id);""")
     productos = cursor.fetchall()
     connection.commit()
     return render_template('index.html', productos=productos)
@@ -41,7 +41,7 @@ def product(product_id):
         return redirect('/')
 
     cursor.execute(
-        f"SELECT * FROM historial WHERE product_url='{prod[2]}';")
+        f"SELECT * FROM historial WHERE prod_id='{prod[0]}';")
     history = cursor.fetchall()
     connection.commit()
     return render_template('product.html', prod=prod, history=history)
