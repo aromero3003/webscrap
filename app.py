@@ -41,7 +41,8 @@ def product(product_id):
         return redirect('/')
 
     cursor.execute(
-        f"SELECT * FROM historial WHERE prod_id={prod[0]} ORDER BY datetime DESC;")
+        # f"SELECT * FROM historial WHERE prod_id={prod[0]} ORDER BY datetime DESC;")
+        f"SELECT * FROM historial WHERE prod_id={prod[0]};")
     history = cursor.fetchall()
     connection.commit()
     return render_template('product.html', prod=prod, history=history)
