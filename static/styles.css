@@ -1,3 +1,34 @@
+body {
+    background: #efefef;
+}
+
+nav {
+    background: #222;
+}
+
+nav a{
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    background: #fff;
+}
+
 div.product-card {
     display: flex;
+}
+
+.price::before {
+    content: "$";
+}
+
+canvas#myChart {
+    width: 50%;
+    height: 300px !important;
+}
+
+footer {
+    background: #333;
+    color: white;
 }
